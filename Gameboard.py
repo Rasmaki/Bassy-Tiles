@@ -19,7 +19,7 @@ class Gameboard():
         self.y2 = self.height
         self.tiles = []
         self.tile = Tile(red, 100, 100, 500, 500)
-        #self.tiles.append(self.tile)
+        # self.tiles.append(self.tile)
         self.speed = 1
         self.acceleration = 1
         self.columns = columns
@@ -42,3 +42,10 @@ class Gameboard():
         for t in self.tiles:
             t.move_down()
             t.draw(self.display)
+
+    def change_col_on_press(self, event):
+        mousePos = pygame.mouse.get_pos()
+        mouseX = mousePos[0]
+        mouseY = mousePos[1]
+        for t in self.tiles:
+            t.check_click(mouseX, mouseY, event)

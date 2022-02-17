@@ -20,15 +20,29 @@ dark_red = 80, 0, 0
 
 clock = pygame.time.Clock()
 tiles = []
-board = Gameboard(9)
+board = Gameboard(20)
 
 counter = 0
-delay = 50
+delay = 30
+bpm = 240
+mspb = 60000 / bpm
+passed_ms = 0
+
+
+def check_bpm():
+    if pygame.time.get_ticks() % mspb <= 1:
+        board.spawn_tile()
+
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+            print(len(board.tiles))
             sys.exit()
-        #elif event.type == pygame.MOUSEBUTTONDOWN:
+
+        board.change_col_on_press(event)
+
+        # elif event.type == pygame.MOUSEBUTTONDOWN:
         #    board.spawn_tile()
         #     mousePos = pygame.mouse.get_pos()
         #     mouseX = mousePos[0]
@@ -36,12 +50,12 @@ while 1:
         #     tiles.append(Tile(red, 50, 50, mouseX, mouseY))
     if counter == delay:
         counter = 0
-        board.spawn_tile()
-
+        # board.spawn_tile()
+    check_bpm()
     counter += 1
     board.display.fill(black)
     board.update()
     board.display_board()
     board.surface.blit(board.display, (0, 0))
     pygame.display.update()
-    clock.tick(100)
+    # clock.tick(100)
