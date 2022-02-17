@@ -22,17 +22,23 @@ clock = pygame.time.Clock()
 tiles = []
 board = Gameboard(9)
 
+counter = 0
+delay = 50
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             sys.exit()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            board.spawn_tile()
+        #elif event.type == pygame.MOUSEBUTTONDOWN:
+        #    board.spawn_tile()
         #     mousePos = pygame.mouse.get_pos()
         #     mouseX = mousePos[0]
         #     mouseY = mousePos[1]
         #     tiles.append(Tile(red, 50, 50, mouseX, mouseY))
+    if counter == delay:
+        counter = 0
+        board.spawn_tile()
 
+    counter += 1
     board.display.fill(black)
     board.update()
     board.display_board()
