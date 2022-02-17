@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 import sys
-import os
 
 pygame.init()
 size = game_width, game_height = 1920, 1080
@@ -16,7 +15,6 @@ black = 0, 0, 0
 soft_orange = 125, 0, 25
 red = 255, 0, 0
 dark_red = 80, 0, 0
-objGroup = []
 
 
 class Block(pygame.sprite.Sprite):
@@ -24,24 +22,20 @@ class Block(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
-        self.rect = self.image.get_rect()
-        self.height = height
-        self.width = width
-        self.block_y = block_y
         self.block_x = block_x
+        self.block_y = block_y
+        self.height = height
+        self.rect = self.image.get_rect()
         self.rect.center = [block_x, block_y]
+        self.speed = 10
 
     def check_click(self, mouse):
         if self.rect.collidepoint(mouse):
             self.image.fill(black)
 
-    def move_down(self):
-        if self.block_y < 800:
-            self.block_y += 10
-            self.image.fill(red)
-
-    def draw(self, surface):
-        surface.blit(self.image, (self.block_x, self.block_y))
+    def update(self):
+        self.rect.y += self.speed
+        pygame.sprite.Sprite.update(self)
 
 
 clock = pygame.time.Clock()
@@ -52,14 +46,14 @@ tile_group.add(tile)
 
 while 1:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or event.type == KEYUP and event.type == K_ESCAPE:
+        if event.type == pygame.QUIT or event.type == KEYUP and event.key == K_ESCAPE:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for s in tile_group:
                 tile.check_click(event.pos)
 
-    tile.move_down()
+    tile_group.draw(screen)
     tile_group.update()
-    tile.draw(screen)
     pygame.display.update()
-    clock.tick(40)
+    pygame.display.flip()
+    clock.tick(10)
