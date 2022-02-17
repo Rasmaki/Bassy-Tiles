@@ -6,8 +6,8 @@ from Gameboard import Gameboard
 from Tile import Tile
 
 pygame.init()
-#size = game_width, game_height = 1920, 1080
-#screen = pygame.display.set_mode(size)
+# size = game_width, game_height = 1920, 1080
+# screen = pygame.display.set_mode(size)
 
 # Colors
 white = 255, 255, 255
@@ -20,26 +20,22 @@ dark_red = 80, 0, 0
 
 clock = pygame.time.Clock()
 tiles = []
-board = Gameboard(6)
+board = Gameboard(9)
 
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            mousePos = pygame.mouse.get_pos()
-            mouseX = mousePos[0]
-            mouseY = mousePos[1]
-            tiles.append(Tile(red, 50, 50, mouseX, mouseY))
+            board.spawn_tile()
+        #     mousePos = pygame.mouse.get_pos()
+        #     mouseX = mousePos[0]
+        #     mouseY = mousePos[1]
+        #     tiles.append(Tile(red, 50, 50, mouseX, mouseY))
 
     board.display.fill(black)
-
-    for s in tiles:
-        s.move_down()
-        s.draw(board.display)
-
+    board.update()
     board.display_board()
     board.surface.blit(board.display, (0, 0))
     pygame.display.update()
     clock.tick(100)
-

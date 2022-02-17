@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 from Tile import Tile
@@ -11,17 +13,17 @@ class Gameboard():
         self.width = pygame.display.get_surface().get_width()
         self.height = pygame.display.get_surface().get_height()
         self.surface = pygame.Surface((self.width, self.height))
-
         self.x1 = 0
         self.y1 = 0
         self.x2 = self.width
         self.y2 = self.height
         self.tiles = []
         self.tile = Tile(red, 100, 100, 500, 500)
+        #self.tiles.append(self.tile)
         self.speed = 1
         self.acceleration = 1
         self.columns = columns
-        self.borderCol = 255, 255, 255
+        self.borderCol = 169, 169, 169
 
     def display_board(self):
         distance = self.x2 / self.columns
@@ -30,10 +32,13 @@ class Gameboard():
             to_pos = distance * (i + 1), self.height
             pygame.draw.line(self.display, self.borderCol, from_pos, to_pos, 5)
 
-    def start(self):
-        print("start")
+    def spawn_tile(self):
+        rnd = random.randint(0, self.columns - 1)
+        tile_width = self.x2 / self.columns
+        tile_height = 100
+        self.tiles.append(Tile((255, 255, 255), tile_width, tile_height, tile_width * rnd, 0))
 
-    # def update(self):
-
-    def addTile(self, tile):
-        self.tiles.append(tile)
+    def update(self):
+        for t in self.tiles:
+            t.move_down()
+            t.draw(self.display)
