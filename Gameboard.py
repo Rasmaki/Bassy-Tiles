@@ -36,7 +36,7 @@ class Gameboard():
         rnd = random.randint(0, self.columns - 1)
         tile_width = self.x2 / self.columns
         tile_height = 100
-        self.tiles.append(Tile((255, 255, 255), tile_width, tile_height, tile_width * rnd, 0))
+        self.tiles.append(Tile((255, 255, 255), tile_width, tile_height, tile_width * rnd, - tile_height))
 
     def update(self):
         for t in self.tiles:
