@@ -3,6 +3,7 @@ from pygame.locals import *
 import sys
 import os
 from Gameboard import Gameboard
+from Sound import Sound
 from Tile import Tile
 
 pygame.init()
@@ -20,21 +21,21 @@ dark_red = 80, 0, 0
 
 clock = pygame.time.Clock()
 tiles = []
-board = Gameboard(20)
+board = Gameboard(8)
 
 counter = 0
 delay = 30
-bpm = 1000
+bpm = 174*2
 mspb = 60000 / bpm
 passed_ms = 0
 spawn_sound = pygame.mixer.Sound('Blop.mp3')
-
+pumpit = Sound('pump_it.mp3')
 
 
 def check_bpm():
     if pygame.time.get_ticks() % mspb <= 1:
         board.spawn_tile()
-        spawn_sound.play()
+        pumpit.play()
 
 
 while 1:
@@ -42,6 +43,9 @@ while 1:
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             print(len(board.tiles))
             sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            spawn_sound.play()
 
         board.handle_mouse_interaction(event.type == pygame.MOUSEBUTTONDOWN)
 

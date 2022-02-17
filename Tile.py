@@ -21,8 +21,9 @@ class Tile(pygame.sprite.Sprite):
         self.rect.center = [block_x, block_y]
         self.is_pressed = False
         self.is_hovered = False
-        self.hover_col = 100, 150, 255
-        self.pressed_col = 0, 191, 255
+        self.hover_col = 0, 191, 255
+        self.pressed_col =100, 150, 255
+
 
     type = 1
 

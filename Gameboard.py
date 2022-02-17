@@ -35,9 +35,10 @@ class Gameboard():
     def spawn_tile(self):
         rnd = random.randint(0, self.columns - 1)
         tile_width = self.x2 / self.columns
-        tile_height = 100
+        tile_height = 250
         self.tiles.append(Tile((255, 255, 255), tile_width, tile_height, tile_width * rnd, - tile_height))
 
+    # ToDo: delete tile if out of gameboard range
     def update(self):
         for t in self.tiles:
             t.move_down()
