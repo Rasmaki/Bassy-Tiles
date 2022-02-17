@@ -52,7 +52,7 @@ tile_group.add(tile)
 
 while 1:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or event.type == KEYUP and event.type == K_ESCAPE:
+        if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for s in tile_group:
@@ -63,3 +63,5 @@ while 1:
     tile.draw(screen)
     pygame.display.update()
     clock.tick(40)
+
+
