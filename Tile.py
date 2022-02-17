@@ -16,8 +16,8 @@ class Tile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.height = height
         self.width = width
-        self.block_y = block_y
-        self.block_x = block_x
+        self.y = block_y
+        self.x = block_x
         self.rect.center = [block_x, block_y]
         self.is_pressed = False
         self.is_hovered = False
@@ -36,7 +36,7 @@ class Tile(pygame.sprite.Sprite):
             self.image.fill(self.pressed_col)
 
     def move_down(self):
-        self.block_y += 1
+        self.y += 1
 
     def draw(self, surface):
         if self.is_pressed:
@@ -46,7 +46,8 @@ class Tile(pygame.sprite.Sprite):
         else:
             self.image.fill(self.default_col)
 
-        surface.blit(self.image, (self.block_x, self.block_y))
+        surface.blit(self.image, (self.x, self.y))
 
     def is_colliding(self, x, y):
-        print("test")
+        if self.x < x < self.x + self.width:
+            print('test')

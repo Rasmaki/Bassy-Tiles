@@ -27,11 +27,14 @@ delay = 30
 bpm = 240
 mspb = 60000 / bpm
 passed_ms = 0
+spawn_sound = pygame.mixer.Sound('Blop.mp3')
+
 
 
 def check_bpm():
     if pygame.time.get_ticks() % mspb <= 1:
         board.spawn_tile()
+        spawn_sound.play()
 
 
 while 1:
