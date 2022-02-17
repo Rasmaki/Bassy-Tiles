@@ -43,9 +43,9 @@ class Gameboard():
             t.move_down()
             t.draw(self.display)
 
-    def change_col_on_press(self, event):
-        mousePos = pygame.mouse.get_pos()
-        mouseX = mousePos[0]
-        mouseY = mousePos[1]
+    def handle_mouse_interaction(self, is_pressed):
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_x = mouse_pos[0]
+        mouse_y = mouse_pos[1]
         for t in self.tiles:
-            t.check_click(mouseX, mouseY, event)
+            t.check_click(mouse_x, mouse_y, is_pressed)

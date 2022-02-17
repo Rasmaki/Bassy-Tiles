@@ -24,7 +24,7 @@ board = Gameboard(20)
 
 counter = 0
 delay = 30
-bpm = 240
+bpm = 1000
 mspb = 60000 / bpm
 passed_ms = 0
 spawn_sound = pygame.mixer.Sound('Blop.mp3')
@@ -43,7 +43,7 @@ while 1:
             print(len(board.tiles))
             sys.exit()
 
-        board.change_col_on_press(event)
+        board.handle_mouse_interaction(event.type == pygame.MOUSEBUTTONDOWN)
 
         # elif event.type == pygame.MOUSEBUTTONDOWN:
         #    board.spawn_tile()

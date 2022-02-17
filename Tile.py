@@ -26,14 +26,14 @@ class Tile(pygame.sprite.Sprite):
 
     type = 1
 
-    def check_click(self, x, y, event):
-        #print(self.block_y)
-        if self.rect.collidepoint(x, y):
-            #print("check click")
+    def check_click(self, x, y, is_pressed):
+        # print(self.block_y)
+        if self.is_colliding(x, y):
             self.is_hovered = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if is_pressed:
                 self.is_pressed = True
-            self.image.fill(self.pressed_col)
+        else:
+            self.is_hovered = False
 
     def move_down(self):
         self.y += 1
@@ -49,5 +49,8 @@ class Tile(pygame.sprite.Sprite):
         surface.blit(self.image, (self.x, self.y))
 
     def is_colliding(self, x, y):
-        if self.x < x < self.x + self.width:
-            print('test')
+        if self.y < y < self.y + self.height:
+            if self.x < x < self.x + self.width:
+                return True
+
+        return False
