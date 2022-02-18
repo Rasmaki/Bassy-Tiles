@@ -1,7 +1,7 @@
 import random
 
 
-class LevelGenerator():
+class LevelGenerator:
     def __init__(self, columns, length):
         self.columns = columns
         self.length = length
@@ -17,11 +17,10 @@ class LevelGenerator():
         else:
             amount = random.randint(1, max_amount)
 
-        tile_indices = random.sample(range(columns), amount)
-
         for i in range(columns):
             row.append(0)
 
+        tile_indices = random.sample(range(columns), amount)
         for i in tile_indices:
             row[i] = 1
 

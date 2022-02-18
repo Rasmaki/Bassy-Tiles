@@ -1,7 +1,4 @@
-import random
-
 import pygame
-
 from LevelGenerator import LevelGenerator
 from Tile import Tile
 
@@ -43,7 +40,7 @@ class GameBoard:
             row = LevelGenerator.next_cycle(self.columns, self.max_row_tiles, False)
             for i in range(self.columns):
                 if row[i] == 1:
-                    #ToDo: use move factor for accurate tile spawn
+                    # ToDo: use move factor for accurate tile spawn
                     self.tiles.append(
                         Tile(self.tile_col,
                              self.tile_width,
@@ -53,7 +50,6 @@ class GameBoard:
                     self.last_tile_y = - self.tile_height
 
     def update(self):
-
         for t in self.tiles:
             t.move_down()
             if t.y > self.height:

@@ -1,14 +1,8 @@
 import pygame
-import pygame
-from pygame.locals import *
-import sys
-import os
 
 
 class Tile(pygame.sprite.Sprite):
-
     def __init__(self, color, width, height, x, y):
-
         pygame.sprite.Sprite.__init__(self)
         self.default_col = color
         self.image = pygame.Surface([width, height])
@@ -25,7 +19,6 @@ class Tile(pygame.sprite.Sprite):
         self.pressed_col = 100, 150, 255
 
     def check_click(self, x, y, is_pressed):
-        # print(self.block_y)
         if self.is_colliding(x, y):
             self.is_hovered = True
             if is_pressed:
