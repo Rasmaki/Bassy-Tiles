@@ -27,6 +27,7 @@ class GameBoard:
         self.tile_col = 255, 255, 255
         self.last_tile_y = 0
         self.move_factor = 1
+        self.last_tile_columns = []
 
     def display_board(self):
         distance = self.x2 / self.columns
@@ -37,9 +38,11 @@ class GameBoard:
 
     def spawn_tile(self):
         if len(self.tiles) == 0 or self.last_tile_y + self.move_factor > 0:
-            row = LevelGenerator.next_cycle(self.columns, self.max_row_tiles, False)
+            row = LevelGenerator.next_cycle(self.columns, self.max_row_tiles, False, self.last_tile_columns)
+            self.last_tile_columns = []
             for i in range(self.columns):
                 if row[i] == 1:
+                    self.last_tile_columns.append(i)
                     # ToDo: use move factor for accurate tile spawn
                     self.tiles.append(
                         Tile(self.tile_col,

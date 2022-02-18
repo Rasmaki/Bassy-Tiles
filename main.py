@@ -6,7 +6,7 @@ from Sound import Sound
 pygame.init()
 
 columns = 6
-black = 0, 0, 0
+background_col = 0, 0, 0
 board = GameBoard(columns)
 spawn_sound = pygame.mixer.Sound('Audio/Blop.mp3')
 pumpit = Sound('Audio/pump_it.mp3')
@@ -20,7 +20,7 @@ while 1:
         board.handle_mouse_interaction(event.type == pygame.MOUSEBUTTONDOWN)
 
     board.spawn_tile()
-    board.display.fill(black)
+    board.display.fill(background_col)
     board.update()
     board.display_board()
     board.surface.blit(board.display, (0, 0))
