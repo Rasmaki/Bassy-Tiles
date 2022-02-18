@@ -33,8 +33,8 @@ mspb = 60000 / bpm
 passed_ms = 0
 spawn_sound = pygame.mixer.Sound('Blop.mp3')
 pumpit = Sound('pump_it.mp3')
-level_gen = LevelGenerator.Levelgenerator(columns, 50)
-level_gen.next_cycle(15, 5, True)
+#level_gen = LevelGenerator.Levelgenerator(columns, 50)
+row = LevelGenerator.LevelGenerator.next_cycle(15, 5, True)
 
 def check_bpm():
     if pygame.time.get_ticks() % mspb <= 1:
@@ -45,6 +45,7 @@ def check_bpm():
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+            print('num of tiles in update function ')
             print(len(board.tiles))
             sys.exit()
 

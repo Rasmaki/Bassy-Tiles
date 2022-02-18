@@ -7,7 +7,7 @@ import os
 
 class Tile(pygame.sprite.Sprite):
 
-    def __init__(self, color, width, height, block_x, block_y):
+    def __init__(self, color, width, height, x, y):
 
         pygame.sprite.Sprite.__init__(self)
         self.default_col = color
@@ -16,16 +16,13 @@ class Tile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.height = height
         self.width = width
-        self.y = block_y
-        self.x = block_x
-        self.rect.center = [block_x, block_y]
+        self.y = y
+        self.x = x
+        self.rect.center = [x, y]
         self.is_pressed = False
         self.is_hovered = False
         self.hover_col = 0, 191, 255
-        self.pressed_col =100, 150, 255
-
-
-    type = 1
+        self.pressed_col = 100, 150, 255
 
     def check_click(self, x, y, is_pressed):
         # print(self.block_y)

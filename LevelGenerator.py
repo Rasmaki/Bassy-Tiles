@@ -1,14 +1,15 @@
 import random
 
 
-class Levelgenerator():
+class LevelGenerator():
     def __init__(self, columns, length):
         self.columns = columns
         self.length = length
         self.content = [[0 for x in range(self.columns)] for y in range(self.length)]
         self.max_tile_per_row = self.columns / 2
 
-    def next_cycle(self, columns, max_amount, force_max):
+    @staticmethod
+    def next_cycle(columns, max_amount, force_max):
         row = []
         amount = 0
         if force_max:
