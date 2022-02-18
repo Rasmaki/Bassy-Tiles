@@ -1,6 +1,6 @@
 import random
 
-
+#Todo: Add function for json level import/export
 class LevelGenerator:
     def __init__(self, columns, length):
         self.columns = columns
@@ -9,6 +9,7 @@ class LevelGenerator:
         self.max_tile_per_row = self.columns / 2
 
     @staticmethod
+    #ToDo: Add an exclude vales option
     def next_cycle(columns, max_amount, force_max):
         row = []
         amount = 0
