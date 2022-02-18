@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import *
 import sys
 import os
+
+import LevelGenerator
 from Gameboard import Gameboard
 from Sound import Sound
 from Tile import Tile
@@ -18,10 +20,11 @@ black = 0, 0, 0
 soft_orange = 125, 0, 25
 red = 255, 0, 0
 dark_red = 80, 0, 0
+columns = 15
 
 clock = pygame.time.Clock()
 tiles = []
-board = Gameboard(8)
+board = Gameboard(columns)
 
 counter = 0
 delay = 30
@@ -30,12 +33,13 @@ mspb = 60000 / bpm
 passed_ms = 0
 spawn_sound = pygame.mixer.Sound('Blop.mp3')
 pumpit = Sound('pump_it.mp3')
-
+level_gen = LevelGenerator.Levelgenerator(columns, 50)
+level_gen.next_cycle(15, 5, True)
 
 def check_bpm():
     if pygame.time.get_ticks() % mspb <= 1:
         board.spawn_tile()
-        pumpit.play()
+        #pumpit.play()
 
 
 while 1:
