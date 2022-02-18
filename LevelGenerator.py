@@ -17,14 +17,12 @@ class LevelGenerator():
         else:
             amount = random.randint(1, max_amount)
 
-        tile_indices = random.sample(range(columns), 10)
+        tile_indices = random.sample(range(columns), amount)
 
         for i in range(columns):
             row.append(0)
 
         for i in tile_indices:
             row[i] = 1
-            print('put tiles on position:')
-            print(i)
 
         return row
