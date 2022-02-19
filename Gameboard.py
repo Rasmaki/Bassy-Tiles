@@ -24,10 +24,10 @@ class GameBoard:
         self.borderCol = 169, 169, 169
         self.max_row_tiles = 1
         self.tile_width = self.x2 / self.columns
-        self.tile_height = 100
+        self.tile_height = 400
         self.tile_col = 255, 255, 255
         self.last_tile_y = 0
-        self.bpm = 128
+        self.bpm = 132
         self.fps = 120
         self.move_factor = 1 * (self.tile_height / 60) / self.fps * self.bpm#self.tile_height / ( self.bpm / 60 )
         self.last_tile_columns = []
