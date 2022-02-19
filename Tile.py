@@ -26,8 +26,8 @@ class Tile(pygame.sprite.Sprite):
         else:
             self.is_hovered = False
 
-    def move_down(self):
-        self.y += 1
+    def move_down(self, amount):
+        self.y += amount
 
     def draw(self, surface):
         if self.is_pressed:

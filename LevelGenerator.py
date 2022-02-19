@@ -2,18 +2,6 @@ import random
 
 
 # Todo: Add function for json level import/export
-def random_exclude(exclude, columns, amount):
-    rng = random.sample(range(columns), amount)
-    if len(exclude) == 0:
-        return rng
-    # test = random.choice(rng - set(exclude))
-    # test = random.choice(list(set([x for x in rng]) - set(exclude)))
-    test = random.choice(list(set([x for x in range(columns)]) - set(exclude)))
-    print('yeet')
-    print(test)
-    return test
-
-
 def recursion_random_exclude(exclude, columns, amount):
     rng = random.sample(range(columns), amount)
     is_excluded = True
@@ -47,13 +35,7 @@ class LevelGenerator:
         for i in range(columns):
             row.append(0)
 
-        # tile_indices = random.sample(range(columns), amount)
-
         tile_indices = recursion_random_exclude(exclude, columns, amount)
-        print('To exclude: ')
-        print(exclude)
-        print('excluded: ')
-        print(tile_indices)
         for i in tile_indices:
             row[i] = 1
 

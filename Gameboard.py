@@ -1,8 +1,11 @@
 import pygame
 from LevelGenerator import LevelGenerator
+from Sound import Sound
 from Tile import Tile
 
 red = 255, 0, 0
+spawn_sound = pygame.mixer.init()
+spawn_sound = pygame.mixer.Sound('Audio/Blop.mp3')
 
 
 class GameBoard:
@@ -21,12 +24,14 @@ class GameBoard:
         self.acceleration = 1
         self.columns = columns
         self.borderCol = 169, 169, 169
-        self.max_row_tiles = int(self.columns / 2)
+        self.max_row_tiles = 1
         self.tile_width = self.x2 / self.columns
         self.tile_height = 400
         self.tile_col = 255, 255, 255
         self.last_tile_y = 0
-        self.move_factor = 1
+        self.bpm = 128
+        # ToDo: not hardcoded fps (60)
+        self.move_factor = self.bpm * 60 / self.tile_height
         self.last_tile_columns = []
 
     def display_board(self):
@@ -38,6 +43,7 @@ class GameBoard:
 
     def spawn_tile(self):
         if len(self.tiles) == 0 or self.last_tile_y + self.move_factor > 0:
+            spawn_sound.play()
             row = LevelGenerator.next_cycle(self.columns, self.max_row_tiles, False, self.last_tile_columns)
             self.last_tile_columns = []
             for i in range(self.columns):
@@ -49,13 +55,13 @@ class GameBoard:
                              self.tile_width,
                              self.tile_height,
                              self.tile_width * i,
-                             - self.tile_height))
+                             self.last_tile_y - self.move_factor - self.tile_height))
                     self.last_tile_y = - self.tile_height
 
     def update(self):
         for t in self.tiles:
-            t.move_down()
-            if t.y > self.height:
+            t.move_down(self.move_factor)
+            if t.y > self.height + self.tile_height:
                 self.tiles.remove(t)
             t.draw(self.display)
 
