@@ -13,13 +13,13 @@ pumpit = Sound('Audio/Give_a_Little_Love.mp3')
 clock = pygame.time.Clock()
 
 while 1:
-    clock.tick(60)
+    clock.tick(120)
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             sys.exit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        #if event.type == pygame.MOUSEBUTTONDOWN:
             #spawn_sound.play()
-            print('click')
+
         board.handle_mouse_interaction(event.type == pygame.MOUSEBUTTONDOWN)
     pumpit.play()
     board.spawn_tile()

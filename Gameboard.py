@@ -20,18 +20,16 @@ class GameBoard:
         self.y2 = self.height
         self.tiles = []
         self.do_infinite = True
-        self.speed = 1
-        self.acceleration = 1
         self.columns = columns
         self.borderCol = 169, 169, 169
         self.max_row_tiles = 1
         self.tile_width = self.x2 / self.columns
-        self.tile_height = 400
+        self.tile_height = 100
         self.tile_col = 255, 255, 255
         self.last_tile_y = 0
         self.bpm = 128
-        # ToDo: not hardcoded fps (60)
-        self.move_factor = self.bpm * 60 / self.tile_height
+        self.fps = 120
+        self.move_factor = 1 * (self.tile_height / 60) / self.fps * self.bpm#self.tile_height / ( self.bpm / 60 )
         self.last_tile_columns = []
 
     def display_board(self):
