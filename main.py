@@ -6,7 +6,7 @@ from KeyboardMapper import KeyboardMapper
 from Sound import Sound
 pygame.init()
 
-columns = 11
+columns = 5
 background_col = 0, 0, 0
 board = GameBoard(columns)
 spawn_sound = pygame.mixer.Sound('Audio/Blop.mp3')
