@@ -53,13 +53,8 @@ class GameBoard:
                          (self.x1, self.press_line_height),
                          (self.x2, self.press_line_height),
                          5)
+        # ToDo: place exaclty in middle of press_line
         self.key_map.display_keys(self.display, distance / 2, distance, self.key_height)
-        #ToDo: implement display keys and handle press
-
-        # for key in self.key_map.key_dict:
-        #     key_font = font.render(key, True, self.key_font_col)
-        #     self.display.blit(key_font, (distance, 0))
-        #     distance += distance
 
     def spawn_tile(self):
         if len(self.tiles) == 0 or self.last_tile_y + self.move_factor > 0:
