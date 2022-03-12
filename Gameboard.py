@@ -1,7 +1,13 @@
 import pygame
+
+from KeyboardMapper import KeyboardMapper
 from LevelGenerator import LevelGenerator
 from Sound import Sound
 from Tile import Tile
+
+pygame.font.init()
+default_font = pygame.font.get_default_font()
+font = pygame.font.SysFont(default_font, 24)
 
 red = 255, 0, 0
 spawn_sound = pygame.mixer.init()
@@ -27,10 +33,15 @@ class GameBoard:
         self.tile_height = 400
         self.tile_col = 255, 255, 255
         self.last_tile_y = 0
-        self.bpm = 132
-        self.fps = 120
-        self.move_factor = 1 * (self.tile_height / 60) / self.fps * self.bpm#self.tile_height / ( self.bpm / 60 )
+        self.press_line_col = 20, 200, 30
+        self.press_line_height = self.height - 200
+        self.bpm = 131
+        self.fps = 60
+        self.move_factor = (self.tile_height / 60) / self.fps * self.bpm
         self.last_tile_columns = []
+        self.key_map = KeyboardMapper(self.columns)
+        self.key_font_col = 255, 20, 147
+        self.key_height = self.height - 100
 
     def display_board(self):
         distance = self.x2 / self.columns
@@ -38,10 +49,21 @@ class GameBoard:
             from_pos = distance * (i + 1), 0
             to_pos = distance * (i + 1), self.height
             pygame.draw.line(self.display, self.borderCol, from_pos, to_pos, 5)
+        pygame.draw.line(self.display, self.press_line_col,
+                         (self.x1, self.press_line_height),
+                         (self.x2, self.press_line_height),
+                         5)
+        self.key_map.display_keys(self.display, distance / 2, distance, self.key_height)
+        #ToDo: implement display keys and handle press
+
+        # for key in self.key_map.key_dict:
+        #     key_font = font.render(key, True, self.key_font_col)
+        #     self.display.blit(key_font, (distance, 0))
+        #     distance += distance
 
     def spawn_tile(self):
         if len(self.tiles) == 0 or self.last_tile_y + self.move_factor > 0:
-            spawn_sound.play()
+            # spawn_sound.play()
             row = LevelGenerator.next_cycle(self.columns, self.max_row_tiles, False, self.last_tile_columns)
             self.last_tile_columns = []
             for i in range(self.columns):
