@@ -2,9 +2,14 @@ import pygame
 from LevelGenerator import LevelGenerator
 from Tile import Tile
 
+
+clock = pygame.time.Clock()
 red = 255, 0, 0
+white = 255, 255, 255
 pygame.mixer.init()
 spawn_sound = pygame.mixer.Sound('Audio/Blop.mp3')
+pygame.font.init()
+sysfont = pygame.font.get_default_font()
 
 
 class GameBoard:
@@ -30,6 +35,11 @@ class GameBoard:
         self.fps = 120
         self.move_factor = 1 * (self.tile_height / 60) / self.fps * self.bpm  # self.tile_height / ( self.bpm / 60 )
         self.last_tile_columns = []
+        self.counter = 0
+        self.font = pygame.font.SysFont('Merriweather', 24)
+        self.img = self.font.render('SCORE:', True, red)
+        self.index = 0
+        self.bass_line = []
 
     def display_board(self):
         distance = self.x2 / self.columns
@@ -40,13 +50,11 @@ class GameBoard:
 
     def spawn_tile(self):
         if len(self.tiles) == 0 or self.last_tile_y + self.move_factor > 0:
-            # spawn_sound.play()
             row = LevelGenerator.next_cycle(self.columns, self.max_row_tiles, False, self.last_tile_columns)
             self.last_tile_columns = []
             for i in range(self.columns):
                 if row[i] == 1:
                     self.last_tile_columns.append(i)
-                    # ToDo: use move factor for accurate tile spawn
                     self.tiles.append(
                         Tile(self.tile_col,
                              self.tile_width,
@@ -63,6 +71,9 @@ class GameBoard:
             t.draw(self.display)
 
         self.last_tile_y = self.tiles[len(self.tiles) - 1].y
+        self.img = self.font.render('SCORE: ' + str(self.counter), True, red)
+        self.display.blit(self.img, (1600, 100))
+        self.counter += 1
 
     def handle_mouse_interaction(self, is_pressed):
         mouse_pos = pygame.mouse.get_pos()
@@ -70,3 +81,17 @@ class GameBoard:
         mouse_y = mouse_pos[1]
         for t in self.tiles:
             t.check_click(mouse_x, mouse_y, is_pressed)
+        if is_pressed:
+            self.index += 1
+            print(self.index)
+            self.bass_line[self.index].play()
+            if self.index >= 63:
+                self.index = 0
+
+    def audio(self):
+        for n in range(1, 65):
+            self.bass_line.append(pygame.mixer.Sound('Audio/' + str(n) + '.wav'))
+
+
+
+

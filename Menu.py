@@ -1,12 +1,10 @@
 import pygame
 import sys
 
-red = 255, 0, 0
-blue = 0, 0, 255
+black = 0, 0, 0
+white = 255, 255, 255
 pygame.font.init()
 sysfont = pygame.font.get_default_font()
-font = pygame.font.SysFont('Helvetica', 24)
-
 
 
 class Menu:
@@ -16,8 +14,8 @@ class Menu:
         self.height = pygame.display.get_surface().get_height()
         self.surface = pygame.Surface((self.width, self.height))
         self.game_loop = False
-        self.start_button = Button(red, 200, 200, 500, 500)
-        self.exit_button = Button(blue, 200, 200, 1200, 500)
+        self.start_button = Button(black, 200, 50, 500, 500)
+        self.exit_button = Button(black, 200, 50, 1200, 500)
         self.button_group = [self.start_button, self.exit_button]
 
     def initialise(self):
@@ -27,10 +25,17 @@ class Menu:
             return True
         if self.exit_button.is_pressed:
             sys.exit()
-        self.start_button.image.blit(self.start_button.img, (self.start_button.width / 2 + self.start_button.x -
-                                                             pygame.font.Font.get_linesize(self.start_button.font),
-                                                             self.start_button.height / 2 + self.start_button.y -
-                                                             pygame.font.Font.get_height(self.start_button.font) / 2))
+        return False
+
+    def draw(self):
+        self.screen.blit(self.start_button.img1, (self.start_button.width / 2 + self.start_button.x -
+                                                  pygame.font.Font.get_linesize(self.start_button.font),
+                                                  self.start_button.height / 2 + self.start_button.y -
+                                                  pygame.font.Font.get_height(self.start_button.font) / 2))
+        self.screen.blit(self.exit_button.img2, (self.exit_button.width / 2 + self.exit_button.x -
+                                                 pygame.font.Font.get_linesize(self.exit_button.font),
+                                                 self.exit_button.height / 2 + self.exit_button.y -
+                                                 pygame.font.Font.get_height(self.exit_button.font) / 2))
 
     def handle_mouse_interaction(self, is_pressed):
         mouse_pos = pygame.mouse.get_pos()
@@ -54,10 +59,11 @@ class Button(pygame.sprite.Sprite):
         self.rect.center = [x, y]
         self.is_pressed = False
         self.is_hovered = False
-        self.hover_col = 0, 191, 255
+        self.hover_col = 25, 5, 5
         self.pressed_col = 100, 150, 255
         self.font = pygame.font.SysFont('Helvetica', 24)
-        self.img = font.render('START', True, blue)
+        self.img1 = self.font.render('START', True, white)
+        self.img2 = self.font.render('EXIT', True, white)
 
     def check_click(self, x, y, is_pressed):
         if self.is_colliding(x, y):
@@ -83,4 +89,3 @@ class Button(pygame.sprite.Sprite):
             self.image.fill(self.default_col)
 
         surface.blit(self.image, (self.x, self.y))
-

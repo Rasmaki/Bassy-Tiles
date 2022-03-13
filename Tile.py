@@ -43,5 +43,4 @@ class Tile(pygame.sprite.Sprite):
         if self.y < y < self.y + self.height:
             if self.x < x < self.x + self.width:
                 return True
-
         return False

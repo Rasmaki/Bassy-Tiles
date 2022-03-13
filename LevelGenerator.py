@@ -23,7 +23,6 @@ class LevelGenerator:
         self.max_tile_per_row = self.columns / 2
 
     @staticmethod
-    # ToDo: Add an exclude values option
     def next_cycle(columns, max_amount, force_max, exclude):
         row = []
         amount = 0
