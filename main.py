@@ -17,6 +17,16 @@ start = Menu()
 
 
 def show_game_over():
+    """Function to call after the game has ended.
+
+    Will draw and blit a new Menu with new event requests. Also the last score will be displayed.
+    If the start button gets clicked, a new game-board will be initialised.
+
+    :arg -> None
+    :return -> None
+
+    """
+
     waiting = True
     while waiting:
         clock.tick(120)
@@ -35,6 +45,13 @@ def show_game_over():
 
 
 def display_score():
+    """Display score after the game ended on the newly plotted Menu.
+
+    :arg -> None
+    :return -> None
+
+    """
+
     score_text = font.render('LAST SCORE: ' + str(score), True, white)
     start.screen.blit(score_text, (start.width*5/7, start.height*5/7))
 
