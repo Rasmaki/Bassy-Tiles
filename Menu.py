@@ -1,5 +1,6 @@
 import pygame
 import sys
+from Gameboard import GameBoard
 
 black = 0, 0, 0
 white = 255, 255, 255
@@ -12,11 +13,17 @@ class Menu:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.width = pygame.display.get_surface().get_width()
         self.height = pygame.display.get_surface().get_height()
-        self.surface = pygame.Surface((self.width, self.height))
+        self.bg_img = pygame.image.load('img/bg_menu.png')
+        self.bg_img = pygame.transform.scale(self.bg_img, (self.width, self.height))
         self.game_loop = False
-        self.start_button = Button(black, 200, 50, 500, 500)
-        self.exit_button = Button(black, 200, 50, 1200, 500)
+        self.start_button = Button(black, 200, 50, self.width*5/7, self.height/4)
+        self.exit_button = Button(black, 200, 50, self.width*6/7, self.height/4)
         self.button_group = [self.start_button, self.exit_button]
+        self.column = 5
+        self.board = GameBoard(self.column)
+        self.score = 0
+        self.font = pygame.font.SysFont('Helvetica', 24)
+        self.welcome_msg = self.font.render('WELCOME TO BASSY TILES!', True, white)
 
     def initialise(self):
         for t in self.button_group:
@@ -36,6 +43,7 @@ class Menu:
                                                  pygame.font.Font.get_linesize(self.exit_button.font),
                                                  self.exit_button.height / 2 + self.exit_button.y -
                                                  pygame.font.Font.get_height(self.exit_button.font) / 2))
+        self.screen.blit(self.welcome_msg, (self.width/7, self.height/7))
 
     def handle_mouse_interaction(self, is_pressed):
         mouse_pos = pygame.mouse.get_pos()
@@ -49,8 +57,7 @@ class Button(pygame.sprite.Sprite):
     def __init__(self, color, width, height, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.default_col = color
-        self.image = pygame.Surface([width, height])
-        self.image.fill(self.default_col)
+        self.image = pygame.image.load('img/menu_buttons.png')
         self.rect = self.image.get_rect()
         self.width = width
         self.height = height
@@ -86,6 +93,6 @@ class Button(pygame.sprite.Sprite):
         elif self.is_hovered:
             self.image.fill(self.hover_col)
         else:
-            self.image.fill(self.default_col)
+            self.image = pygame.image.load('img/menu_buttons.png')
 
         surface.blit(self.image, (self.x, self.y))

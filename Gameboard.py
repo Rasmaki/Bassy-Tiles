@@ -17,7 +17,8 @@ class GameBoard:
         self.display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.width = pygame.display.get_surface().get_width()
         self.height = pygame.display.get_surface().get_height()
-        self.surface = pygame.Surface((self.width, self.height))
+        self.bg_img = pygame.image.load('img/bg_ingame.png')
+        self.bg_img = pygame.transform.scale(self.bg_img, (self.width, self.height))
         self.x1 = 0
         self.y1 = 0
         self.x2 = self.width
@@ -36,7 +37,7 @@ class GameBoard:
         self.move_factor = 1 * (self.tile_height / 60) / self.fps * self.bpm  # self.tile_height / ( self.bpm / 60 )
         self.last_tile_columns = []
         self.counter = 0
-        self.font = pygame.font.SysFont('Merriweather', 24)
+        self.font = pygame.font.SysFont('Helvetica', 24)
         self.img = self.font.render('SCORE:', True, red)
         self.index = 0
         self.bass_line = []
@@ -74,6 +75,7 @@ class GameBoard:
         self.img = self.font.render('SCORE: ' + str(self.counter), True, red)
         self.display.blit(self.img, (1600, 100))
         self.counter += 1
+        self.move_factor += 0.001
 
     def handle_mouse_interaction(self, is_pressed):
         mouse_pos = pygame.mouse.get_pos()
@@ -83,7 +85,6 @@ class GameBoard:
             t.check_click(mouse_x, mouse_y, is_pressed)
         if is_pressed:
             self.index += 1
-            print(self.index)
             self.bass_line[self.index].play()
             if self.index >= 63:
                 self.index = 0
@@ -91,7 +92,3 @@ class GameBoard:
     def audio(self):
         for n in range(1, 65):
             self.bass_line.append(pygame.mixer.Sound('Audio/' + str(n) + '.wav'))
-
-
-
-
